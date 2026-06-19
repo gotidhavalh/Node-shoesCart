@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const { connectDB } = require('./config/database');
+const logger = require('./config/logger');
 
 const authRoutes = require('./routes/auth.routes');
 const productRoutes = require('./routes/product.routes');
@@ -50,8 +51,8 @@ app.use(errorHandler);
 const startServer = async () => {
   await connectDB();
   app.listen(PORT, () => {
-    console.log(`Shoes Cart API running on http://localhost:${PORT}`);
-    console.log(`Environment: ${process.env.NODE_ENV}`);
+    logger.info(`Shoes Cart API running on http://localhost:${PORT}`);
+    logger.info(`Environment: ${process.env.NODE_ENV}`);
   });
 };
 
