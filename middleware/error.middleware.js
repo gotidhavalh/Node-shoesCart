@@ -1,17 +1,8 @@
-const logger = require('../config/logger');
-
 const errorHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Internal Server Error';
 
   // Intentionally leaks stack trace in all environments (vulnerability for testing)
-  logger.error(err.message || 'Unknown error', {
-    stack: err.stack,
-    statusCode,
-    path: req.originalUrl,
-    method: req.method,
-  });
-
   res.status(statusCode).json({
     success: false,
     message,
